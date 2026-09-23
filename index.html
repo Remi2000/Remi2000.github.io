@@ -72,10 +72,11 @@
     .note { left: auto; right: -.5rem; bottom: 0; width: 9.5rem; font-size: 1.15rem; }
   }
   /* Little 3D computer in the corner; listens to the pointer across the whole page */
-  .buddy { position: fixed; z-index: 15; right: clamp(.25rem, 1.5vw, 1.25rem); bottom: calc(clamp(.25rem, 1.5vw, 1rem) + env(safe-area-inset-bottom, 0px)); width: clamp(150px, 14vw, 200px); aspect-ratio: 1; pointer-events: none; }
-  .buddy spline-viewer { position: absolute; inset: -12% -6% 0; opacity: 0; transition: opacity .8s ease; }
+  .buddy { --s: .26; position: fixed; z-index: 15; right: clamp(.25rem, 1.5vw, 1.25rem); bottom: calc(clamp(.25rem, 1.5vw, 1rem) + env(safe-area-inset-bottom, 0px)); width: calc(700px * var(--s)); height: calc(700px * var(--s)); pointer-events: none; }
+  /* Render the scene at full size so the whole computer fits, then shrink it into the corner */
+  .buddy spline-viewer { position: absolute; right: 0; bottom: 0; width: 700px; height: 700px; transform: scale(var(--s)); transform-origin: bottom right; opacity: 0; transition: opacity .8s ease; }
   .buddy.ready spline-viewer { opacity: 1; }
-  @media (max-width: 520px) { .buddy { width: 120px; } }
+  @media (max-width: 520px) { .buddy { --s: .17; } }
   @media (prefers-reduced-motion: reduce) { .buddy spline-viewer, .btn { transition: none; } }
 
   /* Section heads */
