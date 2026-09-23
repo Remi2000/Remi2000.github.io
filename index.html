@@ -5,166 +5,167 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Remi Dai · Software Engineer</title>
 <meta name="description" content="Remi (Jiaqing) Dai — software engineer building backend systems and AI-powered tools. CS M.S. at Brown University, B.S. from UC Berkeley.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖥️</text></svg>">
 <script type="module" src="https://cdn.spline.design/@splinetool/viewer@2.0.56/build/spline-viewer.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,100&family=Figtree:wght@400;500;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --hero: #E9DCD9; --hero-ink: #4A3B3E; --hero-dim: #87706F; --node: #B8969A; --glow: #9A6A6F; --on-glow: #FFFFFF;
-    --bg: #F5F0EE; --surface: #FBF8F7; --ink: #3E3436; --muted: #7E6F71; --line: #E2D7D4; --accent: #9A6A6F; --tint: #EFE4E2;
+    --bg: #F3ECEA; --panel: #FBF7F6; --ink: #3B3134; --muted: #806F72; --line: #E3D8D5;
+    --rose: #9A6A6F; --blush: #E8D7D4;
+    /* one muted color per folder */
+    --f-rose: #DDBFC0; --f-sage: #C6CFC2; --f-blue: #C3CCD5; --f-sand: #DCCFBD;
+    --display: "Fraunces", "Iowan Old Style", Georgia, serif;
+    --sans: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --hand: "Caveat", "Bradley Hand", cursive;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --hero: #2E2628; --hero-ink: #EDE3E1; --hero-dim: #B8A3A5; --node: #A88A8D; --glow: #D2AAAD; --on-glow: #2E2628;
-      --bg: #262022; --surface: #302829; --ink: #EDE3E1; --muted: #AE9C9E; --line: #3D3335; --accent: #D2AAAD; --tint: #372D2F;
+      --bg: #221C1E; --panel: #2B2426; --ink: #EFE6E4; --muted: #B1A0A2; --line: #3E3336; --rose: #D6AEB1; --blush: #3A2F32;
+      --f-rose: #5A4346; --f-sage: #444C42; --f-blue: #414A53; --f-sand: #564B3E;
     }
   }
   *, *::before, *::after { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+  html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1.0625rem/1.65 "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1.0625rem/1.65 var(--sans); -webkit-font-smoothing: antialiased; }
   a { color: inherit; }
-  a:focus-visible { outline: 2px solid var(--glow); outline-offset: 3px; border-radius: 4px; }
-  .wrap { max-width: 66rem; margin: 0 auto; padding: 0 1.5rem; }
+  a:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; border-radius: 6px; }
+  .wrap { max-width: 70rem; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 2.5rem); }
 
-  nav { position: fixed; inset: 0 0 auto 0; z-index: 10; padding-top: env(safe-area-inset-top, 0px); transition: background .3s, border-color .3s; border-bottom: 1px solid transparent; }
-  nav .wrap { display: flex; justify-content: space-between; align-items: center; height: 4rem; }
-  nav .logo { font: 800 1.15rem "Bricolage Grotesque", sans-serif; text-decoration: none; color: var(--hero-ink); white-space: nowrap; }
-  nav ul { display: flex; gap: 1.75rem; list-style: none; margin: 0; padding: 0; }
-  nav ul a { text-decoration: none; font-weight: 500; font-size: .95rem; color: var(--hero-dim); transition: color .2s; }
-  nav ul a:hover { color: var(--hero-ink); }
-  nav.scrolled { background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-color: var(--line); }
-  nav.scrolled .logo { color: var(--ink); }
-  nav.scrolled ul a { color: var(--muted); }
-  nav.scrolled ul a:hover { color: var(--ink); }
-  @media (max-width: 520px) { nav ul { gap: 1rem; } nav ul a { font-size: .875rem; } nav ul li:nth-child(3) { display: none; } }
+  /* Floating pill nav */
+  nav { position: fixed; z-index: 20; left: 50%; transform: translateX(-50%); top: calc(1rem + env(safe-area-inset-top, 0px)); display: flex; align-items: center; gap: .25rem; padding: .35rem; border-radius: 999px; background: color-mix(in srgb, var(--panel) 80%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid var(--line); box-shadow: 0 8px 24px rgba(59,49,52,.06); }
+  nav a { text-decoration: none; font-size: .9rem; font-weight: 600; color: var(--muted); padding: .45rem .95rem; border-radius: 999px; transition: background .2s, color .2s; white-space: nowrap; }
+  nav a:hover { color: var(--ink); background: var(--blush); }
+  nav a.home { color: var(--ink); font-family: var(--display); font-weight: 600; font-size: 1rem; }
+  @media (max-width: 520px) { nav a { padding: .45rem .6rem; font-size: .82rem; } nav a.hide-sm { display: none; } }
 
-  .hero { position: relative; min-height: 92vh; min-height: 92svh; background: var(--hero); color: var(--hero-ink); overflow: hidden; display: flex; align-items: flex-end; padding-top: calc(6rem + env(safe-area-inset-top, 0px)); }
-  .hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .hero::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, var(--hero) 8%, transparent 60%); }
-  .hero .wrap { position: relative; z-index: 1; width: 100%; padding-bottom: clamp(3rem, 9vh, 6rem); pointer-events: none; }
-  .hero .wrap a { pointer-events: auto; }
-  .who { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.75rem; }
-  .avatar { width: 4.5rem; aspect-ratio: 1; border-radius: 50%; overflow: hidden; background: var(--tint); display: grid; place-items: center; font: 500 1.6rem "Bricolage Grotesque", sans-serif; color: var(--glow); flex: none; box-shadow: 0 0 0 4px color-mix(in srgb, var(--hero-ink) 8%, transparent); }
+  /* Hero */
+  .hero { min-height: 100vh; min-height: 100svh; display: grid; align-items: center; padding: calc(7rem + env(safe-area-inset-top, 0px)) 0 4rem; }
+  .hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 2rem; align-items: center; }
+  .hello { font: 700 clamp(1.5rem, 2.4vw, 1.9rem) var(--hand); color: var(--rose); margin: 0 0 .25rem; }
+  .hero h1 { font: 600 clamp(3.6rem, 9vw, 7.25rem)/.92 var(--display); font-variation-settings: "SOFT" 100; letter-spacing: -0.035em; margin: 0 0 1.5rem; }
+  .hero .sub { font-size: clamp(1.1rem, 1.8vw, 1.3rem); color: var(--muted); max-width: 30rem; margin: 0 0 2rem; }
+  .hero .sub strong { color: var(--ink); font-weight: 600; }
+  .links { display: flex; flex-wrap: wrap; gap: .7rem; }
+  .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .8rem 1.35rem; border-radius: 14px; text-decoration: none; font-weight: 600; font-size: .95rem; background: var(--panel); border: 1px solid var(--line); box-shadow: 0 3px 0 var(--line); transition: transform .15s, box-shadow .15s, background .2s; }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 0 var(--line); }
+  .btn:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--line); }
+  .btn.primary { background: var(--rose); color: #fff; border-color: var(--rose); box-shadow: 0 3px 0 color-mix(in srgb, var(--rose) 60%, #000); }
+  .btn.primary:hover { box-shadow: 0 5px 0 color-mix(in srgb, var(--rose) 60%, #000); }
+  .btn svg { width: 1em; height: 1em; fill: currentColor; }
+  @media (prefers-color-scheme: dark) { .btn.primary { color: #221C1E; } }
+
+  .stage { position: relative; aspect-ratio: 1; width: 100%; max-width: 36rem; justify-self: end; }
+  .stage::before { content: ""; position: absolute; inset: 12% 6% 6%; border-radius: 50%; background: var(--blush); }
+  .stage spline-viewer { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity .8s ease; }
+  .stage.ready spline-viewer { opacity: 1; }
+  .note { position: absolute; z-index: 2; left: -1rem; bottom: 8%; width: 11.5rem; padding: 1rem 1rem 1.1rem; background: #F4E3B5; color: #4A3F2A; transform: rotate(-5deg); box-shadow: 0 10px 20px rgba(59,49,52,.12); font: 500 1.35rem/1.15 var(--hand); }
+  .note::before { content: ""; position: absolute; top: -.6rem; left: 50%; width: 4rem; height: 1.2rem; transform: translateX(-50%) rotate(3deg); background: color-mix(in srgb, var(--f-rose) 75%, transparent); }
+  @media (prefers-color-scheme: dark) { .note { background: #CDBF96; } }
+  .avatar { width: 4rem; aspect-ratio: 1; border-radius: 50%; overflow: hidden; background: var(--blush); display: grid; place-items: center; font: 600 1.5rem var(--display); color: var(--rose); margin-bottom: 1.25rem; border: 3px solid var(--panel); box-shadow: 0 0 0 1px var(--line); }
   .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .status { display: inline-flex; align-items: center; gap: .6rem; font-size: .9rem; color: var(--hero-dim); }
-  .status i { width: 8px; height: 8px; border-radius: 50%; background: var(--glow); box-shadow: 0 0 0 4px color-mix(in srgb, var(--glow) 22%, transparent); }
-  .hero h1 { font: 800 clamp(3.5rem, 12vw, 8.5rem)/.95 "Bricolage Grotesque", sans-serif; letter-spacing: -0.045em; margin: 0 0 1.75rem; }
-  .hero h1 .light { display: block; font-weight: 300; color: var(--hero-dim); font-size: .42em; letter-spacing: -0.025em; margin-top: .35em; }
-  .hero p { font-size: clamp(1.1rem, 2vw, 1.3rem); max-width: 36rem; color: var(--hero-dim); margin: 0 0 2.25rem; }
-  .hero p strong { color: var(--hero-ink); font-weight: 500; }
-  .links { display: flex; flex-wrap: wrap; gap: .75rem; }
-  .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .75rem 1.3rem; border-radius: 999px; text-decoration: none; font-weight: 600; font-size: .95rem; border: 1px solid color-mix(in srgb, var(--hero-ink) 30%, transparent); color: var(--hero-ink); transition: background .2s, color .2s, border-color .2s; }
-  .btn:hover { border-color: var(--hero-ink); }
-  .btn.primary { background: var(--glow); border-color: var(--glow); color: var(--on-glow); }
-  .btn.primary:hover { background: var(--hero-ink); border-color: var(--hero-ink); color: var(--hero); }
-  .btn svg { width: 1.05em; height: 1.05em; fill: currentColor; }
-
-  section { padding: clamp(4rem, 10vw, 7rem) 0; }
-  section + section { border-top: 1px solid var(--line); }
-  .sec-title { font: 500 clamp(2rem, 4vw, 2.6rem)/1.1 "Bricolage Grotesque", sans-serif; letter-spacing: -0.025em; margin: 0 0 3rem; }
-
-  .job { display: grid; grid-template-columns: 13rem 1fr; gap: 2.5rem; padding: 2.75rem 0; border-top: 1px solid var(--line); }
-  .job:first-of-type { border-top: 0; padding-top: 0; }
-  .job .when { color: var(--muted); font-size: .95rem; line-height: 1.5; }
-  .job .when b { display: block; color: var(--ink); font-weight: 600; }
-  .job h3 { margin: 0; font: 500 clamp(1.5rem, 3vw, 2rem)/1.15 "Bricolage Grotesque", sans-serif; letter-spacing: -0.02em; }
-  .job .role { color: var(--muted); margin: .25rem 0 1.25rem; }
-  .job .lead { margin: 0 0 1.5rem; max-width: 42rem; font-size: 1.1rem; }
-  .impact { display: flex; flex-wrap: wrap; gap: .75rem; margin: 0 0 1.75rem; padding: 0; list-style: none; }
-  .impact li { background: var(--tint); border-radius: 14px; padding: .9rem 1.1rem; min-width: 9.5rem; }
-  .impact strong { display: block; font: 500 1.45rem/1.1 "Bricolage Grotesque", sans-serif; letter-spacing: -0.02em; color: var(--accent); }
-  .impact span { font-size: .85rem; color: var(--muted); }
-  .job ul.points { margin: 0 0 1.5rem; padding-left: 1.1rem; max-width: 42rem; }
-  .job ul.points li { margin-bottom: .5rem; }
-  .job ul.points li::marker { color: var(--node); }
-  .tags { display: flex; flex-wrap: wrap; gap: .4rem; }
-  .tags span { font-size: .8rem; font-weight: 500; padding: .2rem .7rem; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
-  .todo { background: var(--tint); border-radius: 4px; padding: 0 .3em; }
-  @media (max-width: 760px) { .job { grid-template-columns: 1fr; gap: .75rem; } .job .when b { display: inline; margin-right: .5rem; } }
-
-  .project { position: relative; display: grid; grid-template-columns: 1.3fr 1fr; gap: 2.5rem; background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: clamp(1.75rem, 4vw, 3rem); overflow: hidden; transition: border-color .25s; }
-  .project::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s; background: radial-gradient(24rem circle at var(--x, 50%) var(--y, 50%), color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%); }
-  .project:hover { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
-  .project:hover::before { opacity: 1; }
-  .project h3 { margin: 0 0 .75rem; font: 500 2rem/1.1 "Bricolage Grotesque", sans-serif; letter-spacing: -0.02em; }
-  .project p { margin: 0 0 1rem; color: var(--muted); }
-  .project .side { border-left: 1px solid var(--line); padding-left: 2.5rem; display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem; }
-  .project .side h4 { margin: 0 0 .5rem; font-size: .95rem; font-weight: 600; }
-  .project .side ul { margin: 0; padding-left: 1.1rem; color: var(--muted); }
-  .project .side li::marker { color: var(--node); }
-  .project .more { font-weight: 600; color: var(--accent); text-decoration: none; }
-  .project .more:hover { text-decoration: underline; }
-  @media (max-width: 760px) { .project { grid-template-columns: 1fr; } .project .side { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); padding-top: 1.5rem; } }
-
-  .about { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 3rem; }
-  .about h3 { margin: 0 0 1rem; font-size: 1rem; font-weight: 600; }
-  .school { margin-bottom: 1.25rem; }
-  .school strong { display: block; font: 500 1.3rem/1.2 "Bricolage Grotesque", sans-serif; }
-  .school span { color: var(--muted); }
-  .course { color: var(--muted); font-size: .95rem; }
-  .skills { margin: 0; display: grid; gap: .9rem; }
-  .skills div { display: grid; grid-template-columns: 7rem 1fr; gap: 1rem; }
-  .skills dt { font-weight: 600; font-size: .95rem; }
-  .skills dd { margin: 0; color: var(--muted); font-size: .95rem; }
-  @media (max-width: 420px) { .skills div { grid-template-columns: 1fr; gap: 0; } }
-
-  footer { background: var(--hero); color: var(--hero-ink); padding: clamp(4rem, 10vw, 7rem) 0 calc(2.5rem + env(safe-area-inset-bottom, 0px)); }
-  footer h2 { font: 800 clamp(2.75rem, 9vw, 6rem)/.95 "Bricolage Grotesque", sans-serif; letter-spacing: -0.04em; margin: 0 0 1.25rem; }
-  footer p { color: var(--hero-dim); max-width: 32rem; margin: 0 0 2rem; }
-  footer .mail { font: 300 clamp(1.25rem, 3.5vw, 2rem) "Bricolage Grotesque", sans-serif; color: var(--glow); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--glow) 40%, transparent); overflow-wrap: anywhere; }
-  footer .mail:hover { border-color: var(--glow); }
-  footer .bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-top: 5rem; padding-top: 1.5rem; border-top: 1px solid color-mix(in srgb, var(--hero-ink) 15%, transparent); color: var(--hero-dim); font-size: .9rem; }
-  footer .bottom a { color: var(--hero-dim); text-decoration: none; margin-left: 1.25rem; }
-  footer .bottom a:hover { color: var(--hero-ink); }
-  /* 3D computer from Spline */
-  .scene { position: absolute; z-index: 1; right: max(0rem, calc((100vw - 72rem) / 2)); top: 50%; transform: translateY(-46%); width: min(44vw, 40rem); aspect-ratio: 1; }
-  .scene spline-viewer { width: 100%; height: 100%; display: block; opacity: 0; transition: opacity .8s ease; }
-  .scene.ready spline-viewer { opacity: 1; }
-  .scene::before { content: ""; position: absolute; inset: 15%; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--hero-ink) 7%, transparent), transparent 70%); transition: opacity .8s; }
-  .scene.ready::before { opacity: 0; }
-  .hero .wrap { z-index: 2; }
-  .hero p { max-width: min(36rem, 48vw); }
   @media (max-width: 900px) {
-    .hero { flex-direction: column; justify-content: flex-end; align-items: stretch; }
-    .scene { position: relative; right: auto; top: auto; transform: none; width: min(100%, 26rem); margin: 0 auto -2rem; }
-    .hero p { max-width: 36rem; }
+    .hero { min-height: auto; padding-top: calc(5.5rem + env(safe-area-inset-top, 0px)); }
+    .hero .wrap { grid-template-columns: 1fr; }
+    .stage { order: -1; max-width: 24rem; justify-self: center; margin-bottom: -1rem; }
+    .note { left: auto; right: -.5rem; bottom: 0; width: 9.5rem; font-size: 1.15rem; }
   }
-  @media (prefers-reduced-motion: reduce) { .scene spline-viewer { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .stage spline-viewer, .btn { transition: none; } }
+
+  /* Section heads */
+  section { padding: clamp(4rem, 9vw, 7rem) 0; }
+  .head { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 2.5rem; }
+  .head h2 { font: 600 clamp(2.2rem, 4.5vw, 3.2rem)/1 var(--display); font-variation-settings: "SOFT" 100; letter-spacing: -0.03em; margin: 0; }
+  .head span { font: 600 1.4rem var(--hand); color: var(--rose); }
+
+  /* Folders */
+  .folders { display: grid; gap: 2.75rem; }
+  .folder { --c: var(--f-rose); position: relative; margin-top: 2.4rem; }
+  .folder .tab { position: absolute; bottom: 100%; left: 0; display: flex; align-items: center; gap: .9rem; height: 2.45rem; padding: 0 1.4rem; background: var(--c); border-radius: 14px 14px 0 0; font-weight: 700; font-size: .95rem; white-space: nowrap; max-width: 100%; }
+  .folder .tab small { font-weight: 500; opacity: .75; font-size: .85rem; }
+  .folder .body { background: var(--c); border-radius: 0 22px 22px 22px; padding: .6rem; }
+  .folder .sheet { background: var(--panel); border-radius: 16px; padding: clamp(1.4rem, 3.5vw, 2.25rem); display: grid; grid-template-columns: 1fr 15rem; gap: 2rem; }
+  .folder h3 { margin: 0 0 .15rem; font: 600 clamp(1.5rem, 2.6vw, 1.9rem)/1.15 var(--display); letter-spacing: -0.02em; }
+  .folder .where { color: var(--muted); font-size: .95rem; margin-bottom: 1rem; }
+  .folder .lead { margin: 0 0 1.1rem; font-size: 1.08rem; }
+  .folder ul.points { margin: 0 0 1.25rem; padding-left: 1.1rem; color: var(--muted); }
+  .folder ul.points li { margin-bottom: .45rem; }
+  .folder ul.points li::marker { color: var(--rose); }
+  .impact { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; align-content: start; }
+  .impact li { background: color-mix(in srgb, var(--c) 45%, var(--panel)); border-radius: 14px; padding: .85rem 1rem; }
+  .impact strong { display: block; font: 600 1.45rem/1.1 var(--display); letter-spacing: -0.02em; }
+  .impact span { font-size: .85rem; color: var(--muted); }
+  .keys { display: flex; flex-wrap: wrap; gap: .45rem; }
+  .keys span { font-size: .8rem; font-weight: 600; padding: .28rem .65rem; border-radius: 8px; background: var(--panel); border: 1px solid var(--line); box-shadow: 0 2px 0 var(--line); color: var(--ink); }
+  .todo { background: var(--blush); border-radius: 4px; padding: 0 .3em; }
+  .f-sage { --c: var(--f-sage); } .f-blue { --c: var(--f-blue); } .f-sand { --c: var(--f-sand); }
+  @media (max-width: 800px) { .folder .sheet { grid-template-columns: 1fr; } .impact { grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); order: -1; } }
+  @media (max-width: 480px) { .folder .tab small { display: none; } }
+
+  /* Project */
+  .project { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(1.5rem, 4vw, 3rem); background: var(--panel); border: 1px solid var(--line); border-radius: 26px; padding: clamp(1.75rem, 4vw, 3rem); }
+  .project h3 { margin: 0 0 .75rem; font: 600 clamp(2rem, 4vw, 2.8rem)/1 var(--display); font-variation-settings: "SOFT" 100; letter-spacing: -0.03em; }
+  .project p { margin: 0 0 1rem; color: var(--muted); }
+  .project .aside { background: color-mix(in srgb, var(--f-sage) 40%, var(--panel)); border-radius: 18px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+  .project .aside h4 { margin: 0; font: 600 1.15rem var(--display); }
+  .project .aside p { margin: 0; font-size: .97rem; }
+  .project .more { margin-top: auto; font-weight: 600; color: var(--rose); text-underline-offset: 4px; }
+  @media (max-width: 800px) { .project { grid-template-columns: 1fr; } }
+
+  /* About */
+  .about { display: grid; grid-template-columns: 1fr 1.25fr; gap: 1.25rem; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 26px; padding: clamp(1.5rem, 3.5vw, 2.25rem); }
+  .card h3 { margin: 0 0 1.25rem; font: 600 1.4rem var(--display); }
+  .school { padding: .9rem 0; border-top: 1px dashed var(--line); }
+  .school:first-of-type { border-top: 0; padding-top: 0; }
+  .school strong { display: block; font-weight: 700; }
+  .school span { color: var(--muted); font-size: .95rem; }
+  .course { color: var(--muted); font-size: .95rem; margin: 1rem 0 0; }
+  .kbd-group { margin-bottom: 1.1rem; }
+  .kbd-group:last-child { margin-bottom: 0; }
+  .kbd-group b { display: block; font-size: .85rem; color: var(--muted); font-weight: 600; margin-bottom: .45rem; }
+  @media (max-width: 800px) { .about { grid-template-columns: 1fr; } }
+
+  /* Contact */
+  footer { padding: clamp(4rem, 9vw, 7rem) 0 calc(2.5rem + env(safe-area-inset-bottom, 0px)); }
+  .contact { position: relative; background: var(--f-rose); border-radius: 32px; padding: clamp(2.25rem, 6vw, 4.5rem); overflow: hidden; }
+  .contact h2 { font: 600 clamp(2.8rem, 8vw, 5.5rem)/.95 var(--display); font-variation-settings: "SOFT" 100; letter-spacing: -0.035em; margin: 0 0 1rem; }
+  .contact p { margin: 0 0 2rem; max-width: 30rem; }
+  .contact .scribble { position: absolute; right: clamp(1.5rem, 5vw, 4rem); top: clamp(1.5rem, 4vw, 3rem); font: 700 1.6rem var(--hand); color: var(--rose); transform: rotate(6deg); }
+  @media (max-width: 600px) { .contact .scribble { display: none; } }
+  .bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; color: var(--muted); font-size: .9rem; }
+  .bottom a { text-decoration: none; margin-left: 1.25rem; }
+  .bottom a:hover { color: var(--ink); }
 </style>
 </head>
 <body>
 
-<nav id="nav">
-  <div class="wrap">
-    <a class="logo" href="#top">Remi Dai</a>
-    <ul>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </div>
+<nav aria-label="Main">
+  <a class="home" href="#top">Remi</a>
+  <a href="#experience">Experience</a>
+  <a href="#projects">Projects</a>
+  <a class="hide-sm" href="#about">About</a>
+  <a href="#contact">Contact</a>
 </nav>
 
 <header class="hero" id="top">
-  <canvas id="net" aria-hidden="true"></canvas>
-  <div class="scene" id="scene" aria-hidden="true">
-    <spline-viewer url="https://prod.spline.design/oQkXfBD9kTSBfGed/scene.splinecode"></spline-viewer>
-  </div>
   <div class="wrap">
-    <div class="who">
+    <div>
       <div class="avatar"><img src="avatar.png" alt="Remi's avatar" onerror="this.parentNode.textContent='R'"></div>
-      <div class="status"><i></i>Open to new-grad SWE roles, starting 2027</div>
+      <p class="hello">hi there, I'm</p>
+      <h1>Remi Dai</h1>
+      <p class="sub">A software engineer who builds <strong>backend systems and AI-powered tools</strong>. CS M.S. at Brown, B.S. from UC Berkeley, most recently at Amazon.</p>
+      <div class="links">
+        <a class="btn primary" href="mailto:yiyidai2000@gmail.com">Email me</a>
+        <a class="btn" href="https://github.com/remi2000" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.06-.49.06-.49.8.06 1.23.83 1.23.83.72 1.23 1.88.87 2.34.67.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/jiaqing-dai-79928a214" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 16 16"><path d="M0 1.15C0 .52.52 0 1.18 0h13.64C15.48 0 16 .52 16 1.15v13.7c0 .63-.52 1.15-1.18 1.15H1.18C.52 16 0 15.48 0 14.85V1.15zm4.94 12.24V6.17H2.54v7.22h2.4zM3.74 5.18c.84 0 1.36-.55 1.36-1.25-.02-.71-.52-1.25-1.34-1.25-.82 0-1.36.54-1.36 1.25 0 .7.52 1.25 1.32 1.25h.02zm4.9 8.21V9.36c0-.22.02-.43.08-.59.18-.43.57-.88 1.23-.88.87 0 1.21.66 1.21 1.63v3.87h2.4V9.25c0-2.22-1.18-3.25-2.76-3.25-1.28 0-1.84.7-2.16 1.2V6.17h-2.4c.03.68 0 7.22 0 7.22h2.4z"/></svg>LinkedIn</a>
+      </div>
     </div>
-    <h1>Remi Dai<span class="light">software engineer.</span></h1>
-    <p>I build <strong>backend systems and AI-powered tools</strong> that turn slow, manual work into something that takes minutes. CS M.S. at Brown, B.S. from UC Berkeley.</p>
-    <div class="links">
-      <a class="btn primary" href="mailto:yiyidai2000@gmail.com">Email me</a>
-      <a class="btn" href="https://github.com/remi2000" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.06-.49.06-.49.8.06 1.23.83 1.23.83.72 1.23 1.88.87 2.34.67.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>GitHub</a>
-      <a class="btn" href="https://www.linkedin.com/in/jiaqing-dai-79928a214" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 16 16"><path d="M0 1.15C0 .52.52 0 1.18 0h13.64C15.48 0 16 .52 16 1.15v13.7c0 .63-.52 1.15-1.18 1.15H1.18C.52 16 0 15.48 0 14.85V1.15zm4.94 12.24V6.17H2.54v7.22h2.4zM3.74 5.18c.84 0 1.36-.55 1.36-1.25-.02-.71-.52-1.25-1.34-1.25-.82 0-1.36.54-1.36 1.25 0 .7.52 1.25 1.32 1.25h.02zm4.9 8.21V9.36c0-.22.02-.43.08-.59.18-.43.57-.88 1.23-.88.87 0 1.21.66 1.21 1.63v3.87h2.4V9.25c0-2.22-1.18-3.25-2.76-3.25-1.28 0-1.84.7-2.16 1.2V6.17h-2.4c.03.68 0 7.22 0 7.22h2.4z"/></svg>LinkedIn</a>
+    <div class="stage" id="stage">
+      <spline-viewer url="https://prod.spline.design/oQkXfBD9kTSBfGed/scene.splinecode" aria-hidden="true"></spline-viewer>
+      <div class="note">looking for new-grad SWE roles, 2027 ✿</div>
     </div>
   </div>
 </header>
@@ -172,105 +173,106 @@
 <main>
   <section id="experience">
     <div class="wrap">
-      <h2 class="sec-title">Experience</h2>
+      <div class="head"><h2>Experience</h2><span>where I've worked</span></div>
+      <div class="folders">
 
-      <article class="job">
-        <div class="when"><b>May – Sep 2026</b>Beijing, China</div>
-        <div>
-          <h3>Amazon</h3>
-          <div class="role">Software Engineer Intern</div>
-          <p class="lead">Owned the end-to-end engineering of an AI-powered template-authoring platform for an internal document system, so non-technical users can build templates without an engineer.</p>
-          <ul class="impact">
-            <li><strong>1M+</strong><span>documents generated per day</span></li>
-            <li><strong>300+</strong><span>templates kept compatible</span></li>
-            <li><strong>1 week → 1 hr</strong><span>per-template turnaround</span></li>
-          </ul>
-          <ul class="points">
-            <li>Built Excel and PDF pipelines with Amazon Bedrock (Claude) LLM chains that convert uploaded samples into Apache Velocity templates, rendered and validated by the document engine.</li>
-            <li>Designed 6 Smithy APIs and template versioning using DynamoDB conditional writes, with S3 presigned URLs keeping AWS credentials off the frontend.</li>
-            <li>Wrote the low-level design, led technical review with 5 senior engineers, and shipped format-based routing in the rendering layer.</li>
-          </ul>
-          <div class="tags"><span>React</span><span>TypeScript</span><span>tRPC</span><span>Java</span><span>AWS Lambda</span><span>DynamoDB</span><span>S3</span><span>AWS CDK</span><span>Bedrock</span><span>Smithy</span></div>
-        </div>
-      </article>
+        <article class="folder">
+          <div class="tab">Amazon <small>May – Sep 2026</small></div>
+          <div class="body"><div class="sheet">
+            <div>
+              <h3>Software Engineer Intern</h3>
+              <div class="where">Beijing, China</div>
+              <p class="lead">Owned the end-to-end engineering of an AI-powered template-authoring platform, so non-technical users can build document templates without an engineer.</p>
+              <ul class="points">
+                <li>Built Excel and PDF pipelines with Amazon Bedrock (Claude) LLM chains that turn uploaded samples into Apache Velocity templates, rendered and validated by the document engine.</li>
+                <li>Designed 6 Smithy APIs and template versioning with DynamoDB conditional writes, using S3 presigned URLs to keep AWS credentials off the frontend.</li>
+                <li>Wrote the low-level design, led technical review with 5 senior engineers, and shipped format-based routing in the rendering layer.</li>
+              </ul>
+              <div class="keys"><span>React</span><span>TypeScript</span><span>tRPC</span><span>Java</span><span>Lambda</span><span>DynamoDB</span><span>S3</span><span>CDK</span><span>Bedrock</span><span>Smithy</span></div>
+            </div>
+            <ul class="impact">
+              <li><strong>1M+</strong><span>documents generated per day</span></li>
+              <li><strong>1 wk → 1 hr</strong><span>per-template turnaround</span></li>
+              <li><strong>300+</strong><span>templates kept compatible</span></li>
+            </ul>
+          </div></div>
+        </article>
 
-      <article class="job">
-        <div class="when"><b>May – Sep 2025</b>Mountain View, CA</div>
-        <div>
-          <h3>IpserLab</h3>
-          <div class="role">Software Engineer Intern</div>
-          <p class="lead">Built the backend of a government building-permit platform that moved paper applications online.</p>
-          <ul class="impact">
-            <li><strong>3 days → 4 hrs</strong><span>permit processing time</span></li>
-            <li><strong>10K+</strong><span>applications per year</span></li>
-            <li><strong>95%</strong><span>cache hit rate</span></li>
-          </ul>
-          <ul class="points">
-            <li>Shipped 15+ REST endpoints in Node.js/Express and PostgreSQL to digitize the permit workflow.</li>
-            <li>Built file handling with S3 multipart uploads, auto-save and draft recovery, cutting data loss from 15% to 0.2% across 25K+ uploads a month.</li>
-            <li>Built a multi-currency fee engine with Redis caching that took manual calculation errors from 12% to zero on $500K+ in annual fees.</li>
-          </ul>
-          <div class="tags"><span>Node.js</span><span>Express</span><span>PostgreSQL</span><span>Redis</span><span>AWS S3</span></div>
-        </div>
-      </article>
+        <article class="folder f-sage">
+          <div class="tab">IpserLab <small>May – Sep 2025</small></div>
+          <div class="body"><div class="sheet">
+            <div>
+              <h3>Software Engineer Intern</h3>
+              <div class="where">Mountain View, CA</div>
+              <p class="lead">Built the backend of a government building-permit platform that moved paper applications online.</p>
+              <ul class="points">
+                <li>Shipped 15+ REST endpoints in Node.js/Express and PostgreSQL to digitize the permit workflow.</li>
+                <li>Built file handling with S3 multipart uploads, auto-save and draft recovery, cutting data loss from 15% to 0.2% across 25K+ uploads a month.</li>
+                <li>Built a multi-currency fee engine with Redis caching that took manual calculation errors from 12% to zero on $500K+ in annual fees.</li>
+              </ul>
+              <div class="keys"><span>Node.js</span><span>Express</span><span>PostgreSQL</span><span>Redis</span><span>S3</span></div>
+            </div>
+            <ul class="impact">
+              <li><strong>3 days → 4 hrs</strong><span>permit processing time</span></li>
+              <li><strong>10K+</strong><span>applications per year</span></li>
+              <li><strong>95%</strong><span>cache hit rate</span></li>
+            </ul>
+          </div></div>
+        </article>
 
-      <!-- TODO: fill in One Degree details -->
-      <article class="job">
-        <div class="when"><b><span class="todo">Dates</span></b><span class="todo">Location</span></div>
-        <div>
-          <h3>One Degree</h3>
-          <div class="role"><span class="todo">Role</span></div>
-          <p class="lead">One sentence on what you built and who it was for.</p>
-          <ul class="impact">
-            <li><strong>Number</strong><span>what it measures</span></li>
-          </ul>
-          <ul class="points">
-            <li>What you built, and the result.</li>
-            <li>What you built, and the result.</li>
-          </ul>
-          <div class="tags"><span>Tech stack</span></div>
-        </div>
-      </article>
+        <!-- TODO: fill in One Degree details -->
+        <article class="folder f-blue">
+          <div class="tab">One Degree <small><span class="todo">Dates</span></small></div>
+          <div class="body"><div class="sheet">
+            <div>
+              <h3><span class="todo">Role</span></h3>
+              <div class="where"><span class="todo">Location</span></div>
+              <p class="lead">One sentence on what you built and who it was for.</p>
+              <ul class="points"><li>What you built, and the result.</li><li>What you built, and the result.</li></ul>
+              <div class="keys"><span>Tech</span></div>
+            </div>
+            <ul class="impact"><li><strong>Number</strong><span>what it measures</span></li></ul>
+          </div></div>
+        </article>
 
-      <article class="job">
-        <div class="when"><b>Sep 2023 – Jan 2024</b>Berkeley, CA</div>
-        <div>
-          <h3>CITRIS and the Banatao Institute</h3>
-          <div class="role">Machine Learning Researcher</div>
-          <p class="lead">Built a medical-imaging pipeline that classifies brain MRI scans into Normal, MCI, and Alzheimer's stages.</p>
-          <ul class="impact">
-            <li><strong>86K+</strong><span>MRI scans processed</span></li>
-            <li><strong>87%</strong><span>classification accuracy</span></li>
-            <li><strong>+15%</strong><span>F1 score</span></li>
-          </ul>
-          <ul class="points">
-            <li>Processed the ADNI dataset and addressed class imbalance across the three disease stages.</li>
-            <li>Fine-tuned a VGG16 transfer-learning model and improved F1 through preprocessing and tuning.</li>
-          </ul>
-          <div class="tags"><span>Python</span><span>TensorFlow</span><span>Keras</span></div>
-        </div>
-      </article>
+        <article class="folder f-sand">
+          <div class="tab">CITRIS <small>Sep 2023 – Jan 2024</small></div>
+          <div class="body"><div class="sheet">
+            <div>
+              <h3>Machine Learning Researcher</h3>
+              <div class="where">CITRIS and the Banatao Institute · Berkeley, CA</div>
+              <p class="lead">Built a medical-imaging pipeline that classifies brain MRI scans into Normal, MCI, and Alzheimer's stages.</p>
+              <ul class="points">
+                <li>Processed the ADNI dataset and addressed class imbalance across the three disease stages.</li>
+                <li>Fine-tuned a VGG16 transfer-learning model and improved F1 through preprocessing and tuning.</li>
+              </ul>
+              <div class="keys"><span>Python</span><span>TensorFlow</span><span>Keras</span></div>
+            </div>
+            <ul class="impact">
+              <li><strong>86K+</strong><span>MRI scans processed</span></li>
+              <li><strong>87%</strong><span>classification accuracy</span></li>
+              <li><strong>+15%</strong><span>F1 score</span></li>
+            </ul>
+          </div></div>
+        </article>
+
+      </div>
     </div>
   </section>
 
   <section id="projects">
     <div class="wrap">
-      <h2 class="sec-title">Projects</h2>
+      <div class="head"><h2>Projects</h2><span>things I built on my own</span></div>
       <article class="project">
         <div>
           <h3>CarePlan</h3>
           <p>A Django REST API that uses the Claude API to draft medical care plans for pharmacist review, replacing a manual process that took 20–40 minutes per patient.</p>
           <p>It accepts JSON and XML from three different hospital systems and normalizes them through the Adapter pattern.</p>
-          <div class="tags"><span>Python</span><span>Django</span><span>Claude API</span><span>AWS Lambda</span><span>SQS</span></div>
+          <div class="keys"><span>Python</span><span>Django</span><span>Claude API</span><span>Lambda</span><span>SQS</span></div>
         </div>
-        <div class="side">
-          <div>
-            <h4>Architecture change</h4>
-            <ul>
-              <li>Moved async processing from always-on Celery and Redis workers to event-driven AWS Lambda and SQS.</li>
-              <li>Scales on demand for concurrent requests instead of paying for idle workers.</li>
-            </ul>
-          </div>
+        <div class="aside">
+          <h4>Rethinking the architecture</h4>
+          <p>The first version ran async work on always-on Celery and Redis workers. I rebuilt it as an event-driven AWS Lambda and SQS pipeline that scales with concurrent requests instead of paying for idle workers.</p>
           <a class="more" href="https://github.com/remi2000" target="_blank" rel="noopener noreferrer">More on GitHub</a>
         </div>
       </article>
@@ -279,22 +281,20 @@
 
   <section id="about">
     <div class="wrap">
-      <h2 class="sec-title">About</h2>
+      <div class="head"><h2>About</h2><span>school &amp; toolbox</span></div>
       <div class="about">
-        <div>
+        <div class="card">
           <h3>Education</h3>
           <div class="school"><strong>Brown University</strong><span>M.S. Computer Science · GPA 4.0 · May 2027</span></div>
           <div class="school"><strong>UC Berkeley</strong><span>B.S. Computer Science · Dec 2024</span></div>
           <p class="course">Coursework in distributed systems, operating systems, database systems, computer networks, and machine learning.</p>
         </div>
-        <div>
-          <h3>Skills</h3>
-          <dl class="skills">
-            <div><dt>Languages</dt><dd>Java, Python, TypeScript, JavaScript, Go, C/C++, SQL</dd></div>
-            <div><dt>Frameworks</dt><dd>Spring Boot, Node.js/Express, Django, React, Next.js, tRPC</dd></div>
-            <div><dt>Cloud</dt><dd>AWS (Bedrock, Lambda, DynamoDB, S3, SQS, CDK), Docker, Kubernetes</dd></div>
-            <div><dt>Data</dt><dd>PostgreSQL, MySQL, Redis, MongoDB, Kafka</dd></div>
-          </dl>
+        <div class="card">
+          <h3>Toolbox</h3>
+          <div class="kbd-group"><b>Languages</b><div class="keys"><span>Java</span><span>Python</span><span>TypeScript</span><span>JavaScript</span><span>Go</span><span>C/C++</span><span>SQL</span></div></div>
+          <div class="kbd-group"><b>Frameworks</b><div class="keys"><span>Spring Boot</span><span>Node.js</span><span>Express</span><span>Django</span><span>React</span><span>Next.js</span><span>tRPC</span></div></div>
+          <div class="kbd-group"><b>Cloud</b><div class="keys"><span>AWS Bedrock</span><span>Lambda</span><span>DynamoDB</span><span>S3</span><span>SQS</span><span>CDK</span><span>Docker</span><span>Kubernetes</span></div></div>
+          <div class="kbd-group"><b>Data</b><div class="keys"><span>PostgreSQL</span><span>MySQL</span><span>Redis</span><span>MongoDB</span><span>Kafka</span></div></div>
         </div>
       </div>
     </div>
@@ -303,9 +303,15 @@
 
 <footer id="contact">
   <div class="wrap">
-    <h2>Let's talk.</h2>
-    <p>I'm looking for new-grad software engineering roles. Email is the fastest way to reach me.</p>
-    <a class="mail" href="mailto:yiyidai2000@gmail.com">yiyidai2000@gmail.com</a>
+    <div class="contact">
+      <div class="scribble">say hi!</div>
+      <h2>Let's talk.</h2>
+      <p>I'm looking for new-grad software engineering roles. Email is the fastest way to reach me.</p>
+      <div class="links">
+        <a class="btn primary" href="mailto:yiyidai2000@gmail.com">yiyidai2000@gmail.com</a>
+        <a class="btn" href="https://www.linkedin.com/in/jiaqing-dai-79928a214" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 16 16"><path d="M0 1.15C0 .52.52 0 1.18 0h13.64C15.48 0 16 .52 16 1.15v13.7c0 .63-.52 1.15-1.18 1.15H1.18C.52 16 0 15.48 0 14.85V1.15zm4.94 12.24V6.17H2.54v7.22h2.4zM3.74 5.18c.84 0 1.36-.55 1.36-1.25-.02-.71-.52-1.25-1.34-1.25-.82 0-1.36.54-1.36 1.25 0 .7.52 1.25 1.32 1.25h.02zm4.9 8.21V9.36c0-.22.02-.43.08-.59.18-.43.57-.88 1.23-.88.87 0 1.21.66 1.21 1.63v3.87h2.4V9.25c0-2.22-1.18-3.25-2.76-3.25-1.28 0-1.84.7-2.16 1.2V6.17h-2.4c.03.68 0 7.22 0 7.22h2.4z"/></svg>LinkedIn</a>
+      </div>
+    </div>
     <div class="bottom">
       <span>© 2026 Remi Dai</span>
       <span><a href="https://github.com/remi2000" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://www.linkedin.com/in/jiaqing-dai-79928a214" target="_blank" rel="noopener noreferrer">LinkedIn</a></span>
@@ -314,76 +320,13 @@
 </footer>
 
 <script>
-// Fade the 3D scene in once it has loaded (with a fallback in case the event never fires)
+// Fade the 3D computer in once Spline has loaded it (fallback in case the event never fires)
 (() => {
-  const scene = document.getElementById('scene');
-  const viewer = scene.querySelector('spline-viewer');
-  const show = () => scene.classList.add('ready');
+  const stage = document.getElementById('stage');
+  const viewer = stage.querySelector('spline-viewer');
+  const show = () => stage.classList.add('ready');
   viewer.addEventListener('load-complete', show);
   setTimeout(show, 4000);
-})();
-const nav = document.getElementById('nav');
-const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > window.innerHeight * 0.7);
-addEventListener('scroll', onScroll, { passive: true }); onScroll();
-
-document.querySelectorAll('.project').forEach(card => {
-  card.addEventListener('pointermove', e => {
-    const r = card.getBoundingClientRect();
-    card.style.setProperty('--x', (e.clientX - r.left) + 'px');
-    card.style.setProperty('--y', (e.clientY - r.top) + 'px');
-  });
-});
-
-(() => {
-  const canvas = document.getElementById('net');
-  const ctx = canvas.getContext('2d');
-  const hero = canvas.parentElement;
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const css = getComputedStyle(document.documentElement);
-  const color = css.getPropertyValue('--node').trim() || '#B8969A';
-  const glow = css.getPropertyValue('--glow').trim() || '#9A6A6F';
-  let w, h, nodes = [], mouse = { x: -9999, y: -9999 }, visible = true;
-  const LINK = 140;
-  function resize() {
-    const dpr = Math.min(devicePixelRatio || 1, 2);
-    w = hero.clientWidth; h = hero.clientHeight;
-    canvas.width = w * dpr; canvas.height = h * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const count = Math.round(Math.min(110, (w * h) / 12000));
-    nodes = Array.from({ length: count }, () => ({ x: Math.random() * w, y: Math.random() * h, vx: (Math.random() - .5) * .25, vy: (Math.random() - .5) * .25, r: Math.random() * 1.6 + .8 }));
-    if (reduce) draw();
-  }
-  function draw() {
-    ctx.clearRect(0, 0, w, h);
-    for (const n of nodes) {
-      if (reduce) continue;
-      n.x += n.vx; n.y += n.vy;
-      if (n.x < 0 || n.x > w) n.vx *= -1;
-      if (n.y < 0 || n.y > h) n.vy *= -1;
-      const dx = mouse.x - n.x, dy = mouse.y - n.y, d = Math.hypot(dx, dy);
-      if (d < 180 && d > 1) { n.x += dx / d * .35; n.y += dy / d * .35; }
-    }
-    for (let i = 0; i < nodes.length; i++) {
-      const a = nodes[i];
-      for (let j = i + 1; j < nodes.length; j++) {
-        const b = nodes[j], d = Math.hypot(a.x - b.x, a.y - b.y);
-        if (d < LINK) { ctx.strokeStyle = color; ctx.globalAlpha = (1 - d / LINK) * .35; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
-      }
-      const md = Math.hypot(a.x - mouse.x, a.y - mouse.y);
-      if (md < 180) { ctx.strokeStyle = glow; ctx.globalAlpha = (1 - md / 180) * .6; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke(); }
-      ctx.globalAlpha = md < 180 ? 1 : .75;
-      ctx.fillStyle = md < 180 ? glow : color;
-      ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2); ctx.fill();
-    }
-    ctx.globalAlpha = 1;
-  }
-  function loop() { if (visible) draw(); requestAnimationFrame(loop); }
-  hero.addEventListener('pointermove', e => { const r = hero.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; if (reduce) draw(); });
-  hero.addEventListener('pointerleave', () => { mouse.x = mouse.y = -9999; if (reduce) draw(); });
-  new IntersectionObserver(([e]) => visible = e.isIntersecting).observe(hero);
-  addEventListener('resize', resize);
-  resize();
-  if (!reduce) loop();
 })();
 </script>
 </body>
