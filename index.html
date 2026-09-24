@@ -1,11 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Remi Dai · Software Engineer</title>
 <meta name="description" content="Remi (Jiaqing) Dai — software engineer building backend systems and AI-powered tools. CS M.S. at Brown University, B.S. from UC Berkeley.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖥️</text></svg>">
+<script>
+// Mute any sound the Spline scene tries to play. Runs before the viewer loads.
+(() => {
+  const AC = window.AudioContext || window.webkitAudioContext;
+  if (AC) {
+    class MutedAudioContext extends AC {
+      constructor(...args) { super(...args); this.suspend(); }
+      resume() { return Promise.resolve(); }
+    }
+    window.AudioContext = MutedAudioContext;
+    if (window.webkitAudioContext) window.webkitAudioContext = MutedAudioContext;
+  }
+  const play = HTMLMediaElement.prototype.play;
+  HTMLMediaElement.prototype.play = function (...args) { this.muted = true; return play.apply(this, args); };
+})();
+</script>
 <script type="module" src="https://cdn.spline.design/@splinetool/viewer@2.0.56/build/spline-viewer.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,7 +75,7 @@
 
   .stage { position: relative; width: 100%; max-width: 30rem; justify-self: end; aspect-ratio: 1; }
   .stage::before { content: ""; position: absolute; inset: -5%; border-radius: 50%; border: 1.5px dashed color-mix(in srgb, var(--rose) 45%, transparent); }
-  .portrait { position: absolute; inset: 4%; border-radius: 50%; overflow: hidden; background: var(--blush); border: 10px solid var(--panel); box-shadow: 0 20px 50px rgba(59,49,52,.12); }
+  .portrait { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; background: var(--blush); border: 10px solid var(--panel); box-shadow: 0 20px 50px rgba(59,49,52,.12); }
   .portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .portrait.empty::after { content: "R"; position: absolute; inset: 0; display: grid; place-items: center; font: 600 clamp(5rem, 12vw, 9rem) var(--display); color: var(--rose); }
   .note { position: absolute; z-index: 2; left: -1rem; bottom: 8%; width: 11.5rem; padding: 1rem 1rem 1.1rem; background: #F4E3B5; color: #4A3F2A; transform: rotate(-5deg); box-shadow: 0 10px 20px rgba(59,49,52,.12); font: 500 1.35rem/1.15 var(--hand); }
@@ -143,6 +159,40 @@
   .bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; color: var(--muted); font-size: .9rem; }
   .bottom a { text-decoration: none; margin-left: 1.25rem; }
   .bottom a:hover { color: var(--ink); }
+  /* Folder interactions: the sheet slides up out of the folder when it scrolls into view */
+  .folder { transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+  .folder .body { overflow: clip; overflow-clip-margin: 0; transition: box-shadow .35s; }
+  .folder:hover { transform: translateY(-4px); }
+  .folder:hover .body { box-shadow: 0 18px 40px rgba(59,49,52,.10); }
+  .js .folder .sheet { transform: translateY(70%); opacity: .0; transition: transform .9s cubic-bezier(.2,.8,.2,1), opacity .5s ease; }
+  .js .folder.open .sheet { transform: none; opacity: 1; }
+  .impact strong { font-variant-numeric: tabular-nums; }
+  @media (prefers-reduced-motion: reduce) {
+    .folder, .folder .body { transition: none; }
+    .folder:hover { transform: none; }
+    .js .folder .sheet { transform: none; opacity: 1; transition: none; }
+  }
+  /* Flip card: photo on the front, a little index card on the back */
+  .flip { position: absolute; inset: 4%; perspective: 1400px; cursor: pointer; border-radius: 50%; }
+  .flip-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+  .flip.flipped .flip-inner { transform: rotateY(180deg); }
+  @media (hover: hover) { .flip:hover .flip-inner { transform: rotateY(180deg); } }
+  .face { position: absolute; inset: 0; border-radius: 50%; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+  .back { transform: rotateY(180deg); overflow: hidden; border: 10px solid var(--panel); box-shadow: 0 20px 50px rgba(59,49,52,.12); display: grid; place-items: center; padding: 16% 15%;
+    background: repeating-linear-gradient(to bottom, transparent 0 calc(2.1rem - 1px), color-mix(in srgb, var(--rose) 18%, transparent) calc(2.1rem - 1px) 2.1rem), var(--panel); }
+  .back dl { margin: 0; font-family: var(--hand); color: var(--ink); text-align: center; }
+  .back dt { font-size: clamp(.95rem, 1.6vw, 1.15rem); font-weight: 700; color: var(--rose); line-height: 1.1; margin-top: .55rem; }
+  .back dt:first-child { margin-top: 0; }
+  .back dd { margin: 0; font-size: clamp(1.1rem, 2vw, 1.45rem); font-weight: 500; line-height: 1.15; }
+  .flip-hint { position: absolute; top: 4%; right: -2%; font: 700 1.3rem var(--hand); color: var(--rose); transform: rotate(10deg); pointer-events: none; }
+  @media (hover: none) { .flip-hint { font-size: 0; } .flip-hint::after { content: "tap me ↻"; font-size: 1.15rem; } }
+  @media (max-width: 900px) { .back { padding: 13% 11%; border-width: 6px; } .back dt { font-size: .8rem; margin-top: .3rem; } .back dd { font-size: .92rem; } .flip-hint { right: -18%; } }
+  /* Slide the sticky note out of the way while the card is flipped */
+  .note { transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+  .stage:has(.flipped) .note { transform: rotate(-9deg) translate(-3rem, 4.5rem); }
+  @media (hover: hover) { .stage:has(.flip:hover) .note { transform: rotate(-9deg) translate(-3rem, 4.5rem); } }
+  @media (max-width: 900px) { .stage:has(.flipped) .note { transform: rotate(6deg) translate(2rem, 5rem); } }
+  @media (prefers-reduced-motion: reduce) { .flip-inner, .note { transition: none; } }
 </style>
 </head>
 <body>
@@ -168,7 +218,20 @@
       </div>
     </div>
     <div class="stage">
-      <div class="portrait"><img src="avatar.png" alt="Photo of Remi" onerror="this.parentNode.classList.add('empty'); this.remove();"></div>
+      <div class="flip" id="flip" role="button" tabindex="0" aria-pressed="false" aria-label="Flip the photo to read a few things about Remi">
+        <div class="flip-inner">
+          <div class="face portrait"><img src="avatar.png" alt="Photo of Remi" onerror="this.parentNode.classList.add('empty'); this.remove();"></div>
+          <div class="face back">
+            <dl>
+              <dt>currently</dt><dd>CS M.S. @ Brown</dd>
+              <dt>into</dt><dd>backend systems &amp; AI tools</dd>
+              <dt>off-screen</dt><dd>food trips, design, co-op games</dd>
+              <dt>ask me about</dt><dd>trading California sun for Rhode Island winters</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <span class="flip-hint" aria-hidden="true">flip me ↻</span>
       <div class="note">looking for new-grad SWE roles, 2027 ✿</div>
     </div>
   </div>
@@ -335,6 +398,48 @@
   const show = () => buddy.classList.add('ready');
   viewer.addEventListener('load-complete', show);
   setTimeout(show, 4000);
+})();
+// Flip the photo on tap or keyboard (hover handles it on desktop)
+(() => {
+  const flip = document.getElementById('flip');
+  const toggle = () => { const on = flip.classList.toggle('flipped'); flip.setAttribute('aria-pressed', on); };
+  flip.addEventListener('click', () => { if (!matchMedia('(hover: hover)').matches) toggle(); });
+  flip.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+})();
+// Pull each folder's sheet out when it scrolls into view, then count up its numbers
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const pattern = /^([+]?)(\d+(?:\.\d+)?)([KM]?)([+%]*)$/;
+
+  // Shows 1M as 0 → 250K → 1M rather than 0M → 1M
+  function fmt(n, decimals) {
+    if (n >= 1e6) return (n / 1e6).toFixed(n < 1e7 ? 1 : 0).replace(/\.0$/, '') + 'M';
+    if (n >= 1e3) return Math.round(n / 1e3) + 'K';
+    return n.toFixed(decimals);
+  }
+  function countUp(el) {
+    const final = el.textContent.trim(), m = final.match(pattern);
+    if (!m || reduce) return;
+    const [, pre, num, unit, post] = m, start = performance.now(), dur = 1300;
+    const target = parseFloat(num) * ({ K: 1e3, M: 1e6 }[unit] || 1);
+    const decimals = num.includes('.') ? num.split('.')[1].length : 0;
+    (function tick(now) {
+      const t = Math.min((now - start) / dur, 1), eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = t < 1 ? pre + fmt(target * eased, decimals) + post : final;
+      if (t < 1) requestAnimationFrame(tick);
+    })(start);
+  }
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const folder = e.target;
+      folder.classList.add('open');
+      setTimeout(() => folder.querySelectorAll('.impact strong').forEach(countUp), reduce ? 0 : 350);
+      io.unobserve(folder);
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.folder').forEach(f => io.observe(f));
 })();
 </script>
 </body>
