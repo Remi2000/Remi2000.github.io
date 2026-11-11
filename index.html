@@ -129,7 +129,7 @@
   .project { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(1.5rem, 4vw, 3rem); background: var(--panel); border: 1px solid var(--line); border-radius: 26px; padding: clamp(1.75rem, 4vw, 3rem); }
   .project h3 { margin: 0 0 .75rem; font: 600 clamp(2rem, 4vw, 2.8rem)/1 var(--display); font-variation-settings: "SOFT" 100; letter-spacing: -0.03em; }
   .project p { margin: 0 0 1rem; color: var(--muted); }
-  .project .aside { background: color-mix(in srgb, var(--f-sage) 40%, var(--panel)); border-radius: 18px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+  .project .aside { align-self: start; background: color-mix(in srgb, var(--f-sage) 40%, var(--panel)); border-radius: 18px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
   .project .aside h4 { margin: 0; font: 600 1.15rem var(--display); }
   .project .aside p { margin: 0; font-size: .97rem; }
   .project .more { margin-top: auto; font-weight: 600; color: var(--rose); text-underline-offset: 4px; }
@@ -193,6 +193,8 @@
   @media (hover: hover) { .stage:has(.flip:hover) .note { transform: rotate(-9deg) translate(-3rem, 4.5rem); } }
   @media (max-width: 900px) { .stage:has(.flipped) .note { transform: rotate(6deg) translate(2rem, 5rem); } }
   @media (prefers-reduced-motion: reduce) { .flip-inner, .note { transition: none; } }
+  .projects { display: grid; gap: 1.25rem; }
+  .badge { display: inline-block; margin-bottom: .9rem; font-size: .8rem; font-weight: 600; padding: .25rem .75rem; border-radius: 999px; background: var(--blush); color: var(--rose); }
 </style>
 </head>
 <body>
@@ -214,7 +216,7 @@
       <div class="links">
         <a class="btn primary" href="mailto:yiyidai2000@gmail.com">Email me</a>
         <a class="btn" href="https://github.com/remi2000" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.06-.49.06-.49.8.06 1.23.83 1.23.83.72 1.23 1.88.87 2.34.67.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>GitHub</a>
-        <a class="btn" href="https://www.linkedin.com/in/jiaqing-dai-79928a214" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 16 16"><path d="M0 1.15C0 .52.52 0 1.18 0h13.64C15.48 0 16 .52 16 1.15v13.7c0 .63-.52 1.15-1.18 1.15H1.18C.52 16 0 15.48 0 14.85V1.15zm4.94 12.24V6.17H2.54v7.22h2.4zM3.74 5.18c.84 0 1.36-.55 1.36-1.25-.02-.71-.52-1.25-1.34-1.25-.82 0-1.36.54-1.36 1.25 0 .7.52 1.25 1.32 1.25h.02zm4.9 8.21V9.36c0-.22.02-.43.08-.59.18-.43.57-.88 1.23-.88.87 0 1.21.66 1.21 1.63v3.87h2.4V9.25c0-2.22-1.18-3.25-2.76-3.25-1.28 0-1.84.7-2.16 1.2V6.17h-2.4c.03.68 0 7.22 0 7.22h2.4z"/></svg>LinkedIn</a>
+        <a class="btn" href="https://www.linkedin.com/in/jiaqing-dai" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 16 16"><path d="M0 1.15C0 .52.52 0 1.18 0h13.64C15.48 0 16 .52 16 1.15v13.7c0 .63-.52 1.15-1.18 1.15H1.18C.52 16 0 15.48 0 14.85V1.15zm4.94 12.24V6.17H2.54v7.22h2.4zM3.74 5.18c.84 0 1.36-.55 1.36-1.25-.02-.71-.52-1.25-1.34-1.25-.82 0-1.36.54-1.36 1.25 0 .7.52 1.25 1.32 1.25h.02zm4.9 8.21V9.36c0-.22.02-.43.08-.59.18-.43.57-.88 1.23-.88.87 0 1.21.66 1.21 1.63v3.87h2.4V9.25c0-2.22-1.18-3.25-2.76-3.25-1.28 0-1.84.7-2.16 1.2V6.17h-2.4c.03.68 0 7.22 0 7.22h2.4z"/></svg>LinkedIn</a>
       </div>
     </div>
     <div class="stage">
@@ -249,18 +251,18 @@
             <div>
               <h3>Software Engineer Intern</h3>
               <div class="where">Beijing, China</div>
-              <p class="lead">Owned the end-to-end engineering of an AI-powered template-authoring platform, so non-technical users can build document templates without an engineer.</p>
+              <p class="lead">Built an AI tool that lets Ops and PM teams turn a sample Excel or PDF into a working shipping-document template (customs forms, invoices, packing lists) without an engineer, integrated into Amazon's cross-border shipping-document platform.</p>
               <ul class="points">
-                <li>Built Excel and PDF pipelines with Amazon Bedrock (Claude) LLM chains that turn uploaded samples into Apache Velocity templates, rendered and validated by the document engine.</li>
-                <li>Designed 6 Smithy APIs and template versioning with DynamoDB conditional writes, using S3 presigned URLs to keep AWS credentials off the frontend.</li>
-                <li>Wrote the low-level design, led technical review with 5 senior engineers, and shipped format-based routing in the rendering layer.</li>
+                <li>Designed a multi-step LLM pipeline on Amazon Bedrock (Claude): preprocessing files into structured input, separating layout analysis from template generation, using existing templates as few-shot examples, and feeding rendering errors back to the model so it corrects itself.</li>
+                <li>Built a Python evaluation pipeline that uses production templates as a golden dataset: regenerate each template from its rendered document, re-render it with the same data, and compare fields and layout against the original.</li>
+                <li>Used those results to iterate on prompts and pipeline steps, raising the template-level pass rate from about 50% to 85%.</li>
               </ul>
-              <div class="keys"><span>React</span><span>TypeScript</span><span>tRPC</span><span>Java</span><span>Lambda</span><span>DynamoDB</span><span>S3</span><span>CDK</span><span>Bedrock</span><span>Smithy</span></div>
+              <div class="keys"><span>Bedrock</span><span>Claude</span><span>Python</span><span>Java</span><span>TypeScript</span><span>React</span><span>Lambda</span><span>DynamoDB</span><span>S3</span></div>
             </div>
             <ul class="impact">
-              <li><strong>1M+</strong><span>documents generated per day</span></li>
-              <li><strong>1 wk → 1 hr</strong><span>per-template turnaround</span></li>
-              <li><strong>300+</strong><span>templates kept compatible</span></li>
+              <li><strong>1M+</strong><span>documents per day from 300+ templates</span></li>
+              <li><strong>50% → 85%</strong><span>template pass rate</span></li>
+              <li><strong>&lt; 1 hr</strong><span>from sample to working template</span></li>
             </ul>
           </div></div>
         </article>
@@ -273,11 +275,12 @@
               <div class="where">Mountain View, CA</div>
               <p class="lead">Built the backend of a government building-permit platform that moved paper applications online.</p>
               <ul class="points">
-                <li>Shipped 15+ REST endpoints in Node.js/Express and PostgreSQL to digitize the permit workflow.</li>
-                <li>Built file handling with S3 multipart uploads, auto-save and draft recovery, cutting data loss from 15% to 0.2% across 25K+ uploads a month.</li>
+                <li>Shipped 15+ REST endpoints in TypeScript and Node.js/Express to digitize the permit workflow.</li>
+                <li>Ran 20+ PostgreSQL schema migrations as new permit types were added, using backward-compatible steps (add column, backfill, enforce constraint) for zero downtime and no data loss.</li>
+                <li>Built S3 multipart uploads with auto-save and draft recovery, cutting data loss from 15% to 0.2% across 25K+ uploads a month.</li>
                 <li>Built a multi-currency fee engine with Redis caching that took manual calculation errors from 12% to zero on $500K+ in annual fees.</li>
               </ul>
-              <div class="keys"><span>Node.js</span><span>Express</span><span>PostgreSQL</span><span>Redis</span><span>S3</span></div>
+              <div class="keys"><span>TypeScript</span><span>Node.js</span><span>Express</span><span>PostgreSQL</span><span>Redis</span><span>S3</span></div>
             </div>
             <ul class="impact">
               <li><strong>3 days → 4 hrs</strong><span>permit processing time</span></li>
@@ -316,10 +319,10 @@
               <div class="where">CITRIS and the Banatao Institute · Berkeley, CA</div>
               <p class="lead">Built a medical-imaging pipeline that classifies brain MRI scans into Normal, MCI, and Alzheimer's stages.</p>
               <ul class="points">
-                <li>Processed the ADNI dataset and addressed class imbalance across the three disease stages.</li>
+                <li>Distributed preprocessing of 86K+ ADNI scans across Celery workers and addressed class imbalance across the three disease stages.</li>
                 <li>Fine-tuned a VGG16 transfer-learning model and improved F1 through preprocessing and tuning.</li>
               </ul>
-              <div class="keys"><span>Python</span><span>TensorFlow</span><span>Keras</span></div>
+              <div class="keys"><span>Python</span><span>TensorFlow</span><span>Keras</span><span>Celery</span></div>
             </div>
             <ul class="impact">
               <li><strong>86K+</strong><span>MRI scans processed</span></li>
@@ -335,20 +338,36 @@
 
   <section id="projects">
     <div class="wrap">
-      <div class="head"><h2>Projects</h2><span>things I built on my own</span></div>
-      <article class="project">
-        <div>
-          <h3>CarePlan</h3>
-          <p>A Django REST API that uses the Claude API to draft medical care plans for pharmacist review, replacing a manual process that took 20–40 minutes per patient.</p>
-          <p>It accepts JSON and XML from three different hospital systems and normalizes them through the Adapter pattern.</p>
-          <div class="keys"><span>Python</span><span>Django</span><span>Claude API</span><span>Lambda</span><span>SQS</span></div>
-        </div>
-        <div class="aside">
-          <h4>Rethinking the architecture</h4>
-          <p>The first version ran async work on always-on Celery and Redis workers. I rebuilt it as an event-driven AWS Lambda and SQS pipeline that scales with concurrent requests instead of paying for idle workers.</p>
-          <a class="more" href="https://github.com/remi2000" target="_blank" rel="noopener noreferrer">More on GitHub</a>
-        </div>
-      </article>
+      <div class="head"><h2>Projects</h2><span>things I'm building</span></div>
+      <div class="projects">
+        <article class="project">
+          <div>
+            <span class="badge">In progress · Sep 2026 – now</span>
+            <h3>ATLAS</h3>
+            <p>An agentic platform that plans, runs, and analyzes budget-constrained load tests on HTTP services on its own, to find how much traffic a service can take before it breaks its SLO and where the bottlenecks are.</p>
+            <p>Four Gemini-powered agents work under a deterministic coordinator: they plan and provision in parallel, refine plans through a planner–critic loop, and run automated k6 experiments.</p>
+            <div class="keys"><span>Gemini</span><span>k6</span><span>FastAPI</span><span>React</span><span>PostgreSQL</span><span>MongoDB</span><span>GKE</span><span>Docker</span></div>
+          </div>
+          <div class="aside">
+            <h4>Guardrails the agents can't skip</h4>
+            <p>A 5-component rule-enforced harness, separate from the agents, enforces the budget and resource limits. Each test runs in its own isolated environment on Google Kubernetes Engine and is cleaned up automatically afterwards.</p>
+          </div>
+        </article>
+
+        <article class="project">
+          <div>
+            <h3>CarePlan</h3>
+            <p>A Django REST API that uses the Claude API to draft medical care plans for pharmacist review, replacing a manual process that took 20–40 minutes per patient.</p>
+            <p>It accepts JSON and XML from three different hospital systems and normalizes them through the Adapter pattern.</p>
+            <div class="keys"><span>Python</span><span>Django</span><span>Claude API</span><span>Lambda</span><span>SQS</span></div>
+          </div>
+          <div class="aside">
+            <h4>Rethinking the architecture</h4>
+            <p>The first version ran async work on always-on Celery and Redis workers. I rebuilt it as an event-driven AWS Lambda and SQS pipeline that scales with concurrent requests instead of paying for idle workers.</p>
+            <a class="more" href="https://github.com/remi2000" target="_blank" rel="noopener noreferrer">More on GitHub</a>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 
@@ -364,10 +383,10 @@
         </div>
         <div class="card">
           <h3>Toolbox</h3>
-          <div class="kbd-group"><b>Languages</b><div class="keys"><span>Java</span><span>Python</span><span>TypeScript</span><span>JavaScript</span><span>Go</span><span>C/C++</span><span>SQL</span></div></div>
-          <div class="kbd-group"><b>Frameworks</b><div class="keys"><span>Spring Boot</span><span>Node.js</span><span>Express</span><span>Django</span><span>React</span><span>Next.js</span><span>tRPC</span></div></div>
-          <div class="kbd-group"><b>Cloud</b><div class="keys"><span>AWS Bedrock</span><span>Lambda</span><span>DynamoDB</span><span>S3</span><span>SQS</span><span>CDK</span><span>Docker</span><span>Kubernetes</span></div></div>
-          <div class="kbd-group"><b>Data</b><div class="keys"><span>PostgreSQL</span><span>MySQL</span><span>Redis</span><span>MongoDB</span><span>Kafka</span></div></div>
+          <div class="kbd-group"><b>Languages</b><div class="keys"><span>Java</span><span>Python</span><span>TypeScript</span><span>JavaScript</span><span>Go</span><span>C/C++</span><span>C#</span><span>SQL</span></div></div>
+          <div class="kbd-group"><b>Frameworks</b><div class="keys"><span>Spring Boot</span><span>Node.js</span><span>Express</span><span>Django</span><span>Flask</span><span>React</span><span>Next.js</span><span>Vue.js</span><span>tRPC</span><span>PyTorch</span><span>TensorFlow</span></div></div>
+          <div class="kbd-group"><b>Cloud</b><div class="keys"><span>AWS Bedrock</span><span>Lambda</span><span>EC2</span><span>DynamoDB</span><span>S3</span><span>SQS</span><span>CDK</span><span>Docker</span><span>Kubernetes</span><span>Nginx</span></div></div>
+          <div class="kbd-group"><b>Data</b><div class="keys"><span>PostgreSQL</span><span>MySQL</span><span>MongoDB</span><span>Redis</span><span>Elasticsearch</span><span>Kafka</span><span>RabbitMQ</span></div></div>
         </div>
       </div>
     </div>
@@ -382,12 +401,12 @@
       <p>I'm looking for new-grad software engineering roles. Email is the fastest way to reach me.</p>
       <div class="links">
         <a class="btn primary" href="mailto:yiyidai2000@gmail.com">yiyidai2000@gmail.com</a>
-        <a class="btn" href="https://www.linkedin.com/in/jiaqing-dai-79928a214" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 16 16"><path d="M0 1.15C0 .52.52 0 1.18 0h13.64C15.48 0 16 .52 16 1.15v13.7c0 .63-.52 1.15-1.18 1.15H1.18C.52 16 0 15.48 0 14.85V1.15zm4.94 12.24V6.17H2.54v7.22h2.4zM3.74 5.18c.84 0 1.36-.55 1.36-1.25-.02-.71-.52-1.25-1.34-1.25-.82 0-1.36.54-1.36 1.25 0 .7.52 1.25 1.32 1.25h.02zm4.9 8.21V9.36c0-.22.02-.43.08-.59.18-.43.57-.88 1.23-.88.87 0 1.21.66 1.21 1.63v3.87h2.4V9.25c0-2.22-1.18-3.25-2.76-3.25-1.28 0-1.84.7-2.16 1.2V6.17h-2.4c.03.68 0 7.22 0 7.22h2.4z"/></svg>LinkedIn</a>
+        <a class="btn" href="https://www.linkedin.com/in/jiaqing-dai" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 16 16"><path d="M0 1.15C0 .52.52 0 1.18 0h13.64C15.48 0 16 .52 16 1.15v13.7c0 .63-.52 1.15-1.18 1.15H1.18C.52 16 0 15.48 0 14.85V1.15zm4.94 12.24V6.17H2.54v7.22h2.4zM3.74 5.18c.84 0 1.36-.55 1.36-1.25-.02-.71-.52-1.25-1.34-1.25-.82 0-1.36.54-1.36 1.25 0 .7.52 1.25 1.32 1.25h.02zm4.9 8.21V9.36c0-.22.02-.43.08-.59.18-.43.57-.88 1.23-.88.87 0 1.21.66 1.21 1.63v3.87h2.4V9.25c0-2.22-1.18-3.25-2.76-3.25-1.28 0-1.84.7-2.16 1.2V6.17h-2.4c.03.68 0 7.22 0 7.22h2.4z"/></svg>LinkedIn</a>
       </div>
     </div>
     <div class="bottom">
       <span>© 2026 Remi Dai</span>
-      <span><a href="https://github.com/remi2000" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://www.linkedin.com/in/jiaqing-dai-79928a214" target="_blank" rel="noopener noreferrer">LinkedIn</a></span>
+      <span><a href="https://github.com/remi2000" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://www.linkedin.com/in/jiaqing-dai" target="_blank" rel="noopener noreferrer">LinkedIn</a></span>
     </div>
   </div>
 </footer>
